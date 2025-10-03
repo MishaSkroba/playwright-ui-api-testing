@@ -1,0 +1,81 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+venv/
+ENV/
+env/
+venv.bak/
+venv.bak/
+
+# Pyenv
+.python-version
+
+# pipenv
+
+# pytest
+.cache/
+.pytest_cache/
+html_report.html
+
+# Playwright test artifacts
+report_output/
+report.html
+screenshots/
+*/screenshots/
+test-results/
+trace.zip
+
+# Test failure screenshots kept in repo root
+*_failure.png
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# Misc
+env.bak/

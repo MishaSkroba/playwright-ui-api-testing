@@ -1,0 +1,48 @@
+{
+  "filters": {
+    "untracked": 2,
+    "total": 2,
+    "passed": 2,
+    "marker_counts": {}
+  },
+  "results": [
+    {
+      "test": "test_input_validation_form_submission_chromium_",
+      "nodeid": "tests/test_part1_test1.py::test_input_validation_form_submission[chromium]",
+      "status": "passed",
+      "duration": 0.5763527000090107,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\test_part1_test1.py",
+      "line": 4,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2025-08-18T09:28:05.968279Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "flaky": false
+    },
+    {
+      "test": "test_add_to_cart_and_verify_details_chromium_",
+      "nodeid": "tests/test_part2_test2.py::test_add_to_cart_and_verify_details[chromium]",
+      "status": "passed",
+      "duration": 11.142373799986672,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\test_part2_test2.py",
+      "line": 4,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2025-08-18T09:28:17.217620Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "flaky": false
+    }
+  ]
+}
