@@ -1,47 +1,47 @@
-## Playwright UI & API testing project
+## Playwright UI & API testing suite
 
-A cross-browser test suite based on Playwright and pytest. It demonstrates:
-- Form validation and verification of rendered results
-- Product search and adding to cart with total amount checks
-- Hybrid UI/API scenario for a contacts list (request interception, authorization, PATCH update, cleanup)
+A lightweight collection of Playwright + pytest checks. It covers:
+- Completing a web form and validating that the page reflects submitted data
+- Finding a product and adding it to the cart with verification of price math
+- A combined UI/API flow for a contacts service (request interception, authentication, partial updates, and cleanup)
 
-## Stack
+## Technology
 
 - Python 3.12
 - pytest
-- Playwright (plugin `pytest-playwright`)
-- HTML reports via `pytest-html` (optionally — Allure)
+- Playwright via the `pytest-playwright` plugin
+- HTML reporting with `pytest-html` (Allure can be plugged in if desired)
 
-## Structure
+## Project layout
 
 - `tests/`
-  - `test_part1_test1.py`: input form data, submit, and verify the displayed values.
-  - `test_part2_test2.py`: product search, price sort, add to cart, check quantity and total.
-  - `test_contacts_app.py`: API login, intercept `POST /contacts` with an extra field, use token in headers, partial update, and entity deletion.
-- `screenshots/`: folder for screenshots (as needed).
-- `reports/`: recommended location for HTML reports.
-- `final_report.json`: example of a final artifact.
+  - `test_part1_test1.py`: populates a form, submits it, and asserts the values shown on the results screen.
+  - `test_part2_test2.py`: executes a product search, applies price sorting, adds to cart, and validates quantity plus computed total.
+  - `test_contacts_app.py`: signs in via API, intercepts `POST /contacts` to enrich payload, uses the token for requests, updates a field via PATCH, and deletes the created record.
+- `screenshots/`: optional directory to store screenshots.
+- `reports/`: preferred location for generated HTML reports.
+- `final_report.json`: example artifact that downstream tooling can consume.
 
-## Requirements
+## Prerequisites
 
-- Python 3.12+
+- Python 3.12 or newer
 - Git
-- Installed Playwright browsers (see below)
+- Playwright browsers installed (see below)
 
-## Setup
+## Installation
 
 ```bash
-# From the project root
+# In the repository root
 pip install pipenv
 pipenv install
 ```
 
-Install Playwright browsers (one-time):
+Install Playwright browser binaries (run once):
 ```bash
 pipenv run python -m playwright install
 ```
 
-Alternative without Pipenv (local venv):
+Alternative without Pipenv (virtual environment):
 ```bash
 python -m venv .venv
 . .venv/Scripts/activate  # Windows PowerShell
@@ -49,65 +49,65 @@ pip install -U pip pytest pytest-playwright pytest-html
 python -m playwright install
 ```
 
-## How to run
+## Running tests
 
-Run the entire suite (headless):
+Execute all tests (headless):
 ```bash
 pipenv run pytest -q
 ```
 
-Run a specific file:
+Run a single file:
 ```bash
 pipenv run pytest tests/test_contacts_app.py -q
 ```
 
-Choose a browser:
+Choose a browser explicitly:
 ```bash
 pipenv run pytest --browser firefox
 ```
 
-Headed mode (debug-friendly):
+Run with the browser window visible (useful for debugging):
 ```bash
 pipenv run pytest --headed -s
 ```
 
-Filter by test name:
+Filter by name expression:
 ```bash
 pipenv run pytest -k "cart or contacts"
 ```
 
-## HTML report
+## HTML reporting
 
-Generate a report using `pytest-html`:
+Generate an HTML report with `pytest-html`:
 ```bash
 pipenv run pytest \
   --html=reports/report.html \
   --self-contained-html
 ```
 
-After execution, open `reports/report.html` in your browser.
+After the run completes, open `reports/report.html` in your browser.
 
-## Scenarios
+## Test scenarios
 
 ### Form validation (`tests/test_part1_test1.py`)
 - Navigate to the validation page
-- Fill in first name, last name, age, country, notes
-- Submit and verify the results page displays the submitted values
+- Provide first name, last name, age, country, and notes
+- Submit and assert the results view mirrors the submitted values
 
 ### E-commerce cart (`tests/test_part2_test2.py`)
-- Search for a product, sort by price (descending)
-- Open product page, set quantity, add to cart
-- Check product name, quantity, and computed line total
+- Search for an item and sort by price (descending)
+- Open the item page, set quantity, and add to cart
+- Verify product name, quantity, and computed line total
 
 ### Contacts hybrid (`tests/test_contacts_app.py`)
-- Log in via API and read token from the browser context cookies
-- Intercept `POST /contacts` and add a field (e.g., `country`)
-- UI navigation to the contacts list and basic table checks
-- `PATCH` update of a specific field and assert the response
-- Delete the created contact to clean up state
+- Authenticate via API and obtain the token from the browser context cookies
+- Intercept `POST /contacts` to append a field (e.g., `country`)
+- Navigate to the contacts list UI and perform basic table checks
+- Apply a `PATCH` to modify a field and validate the response
+- Delete the created contact to restore server state
 
-## Tips
+## Useful tips
 
-- Use `--headed` and the desired `--browser` for local debugging.
-- Store artifacts (screenshots/reports) in `screenshots/` and `reports/`.
-- Add new tests under `tests/` with clear names and assertions.
+- For interactive debugging, combine `--headed` with a specific `--browser`.
+- Keep artifacts tidy under `screenshots/` and `reports/`.
+- Add any new tests under `tests/` with clear names and focused assertions.
