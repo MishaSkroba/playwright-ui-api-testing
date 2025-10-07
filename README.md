@@ -1,9 +1,10 @@
 ## Playwright UI & API testing suite
+## Playwright UI & API testing suite
 
-A lightweight collection of Playwright + pytest checks. It covers:
-- Completing a web form and validating that the page reflects submitted data
-- Finding a product and adding it to the cart with verification of price math
-- A combined UI/API flow for a contacts service (request interception, authentication, partial updates, and cleanup)
+A portable set of browser tests powered by Playwright and pytest. It showcases:
+- Filling and validating a web form, then asserting the rendered output
+- Searching a product and adding it to the cart with price calculations verified
+- A mixed UI/API workflow for a contacts service (network interception, auth, PATCH update, and teardown)
 
 ## Technology
 
@@ -12,6 +13,7 @@ A lightweight collection of Playwright + pytest checks. It covers:
 - Playwright via the `pytest-playwright` plugin
 - HTML reporting with `pytest-html` (Allure can be plugged in if desired)
 
+## Project layout
 ## Project layout
 
 - `tests/`
@@ -23,20 +25,25 @@ A lightweight collection of Playwright + pytest checks. It covers:
 - `final_report.json`: example artifact that downstream tooling can consume.
 
 ## Prerequisites
+## Prerequisites
 
+- Python 3.12 or newer
 - Python 3.12 or newer
 - Git
 - Playwright browsers installed (see below)
+- Playwright browsers installed (see below)
 
+## Installation
 ## Installation
 
 ```bash
+# In the repository root
 # In the repository root
 pip install pipenv
 pipenv install
 ```
 
-Install Playwright browser binaries (run once):
+Install browser binaries for Playwright (run once):
 ```bash
 pipenv run python -m playwright install
 ```
@@ -50,34 +57,42 @@ python -m playwright install
 ```
 
 ## Running tests
+## Running tests
 
+Execute all tests (headless):
 Execute all tests (headless):
 ```bash
 pipenv run pytest -q
 ```
 
 Run a single file:
+Run a single file:
 ```bash
 pipenv run pytest tests/test_contacts_app.py -q
 ```
 
+Choose a browser explicitly:
 Choose a browser explicitly:
 ```bash
 pipenv run pytest --browser firefox
 ```
 
 Run with the browser window visible (useful for debugging):
+Run with the browser window visible (useful for debugging):
 ```bash
 pipenv run pytest --headed -s
 ```
 
+Filter by name expression:
 Filter by name expression:
 ```bash
 pipenv run pytest -k "cart or contacts"
 ```
 
 ## HTML reporting
+## HTML reporting
 
+Produce an HTML report via `pytest-html`:
 Generate an HTML report with `pytest-html`:
 ```bash
 pipenv run pytest \
@@ -85,12 +100,15 @@ pipenv run pytest \
   --self-contained-html
 ```
 
-After the run completes, open `reports/report.html` in your browser.
+Once finished, open `reports/report.html` in your browser.
 
+## Test scenarios
 ## Test scenarios
 
 ### Form validation (`tests/test_part1_test1.py`)
 - Navigate to the validation page
+- Provide first name, last name, age, country, and notes
+- Submit and assert the results view mirrors the submitted values
 - Provide first name, last name, age, country, and notes
 - Submit and assert the results view mirrors the submitted values
 
@@ -98,8 +116,16 @@ After the run completes, open `reports/report.html` in your browser.
 - Search for an item and sort by price (descending)
 - Open the item page, set quantity, and add to cart
 - Verify product name, quantity, and computed line total
+- Search for an item and sort by price (descending)
+- Open the item page, set quantity, and add to cart
+- Verify product name, quantity, and computed line total
 
 ### Contacts hybrid (`tests/test_contacts_app.py`)
+- Authenticate via API and obtain the token from the browser context cookies
+- Intercept `POST /contacts` to append a field (e.g., `country`)
+- Navigate to the contacts list UI and perform basic table checks
+- Apply a `PATCH` to modify a field and validate the response
+- Delete the created contact to restore server state
 - Authenticate via API and obtain the token from the browser context cookies
 - Intercept `POST /contacts` to append a field (e.g., `country`)
 - Navigate to the contacts list UI and perform basic table checks
